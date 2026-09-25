@@ -75,3 +75,5 @@ gem 'devise'
 group :production do
   gem 'pg'
 end
+
+gem "simple_calendar", "~> 2.0"

@@ -1,0 +1,31 @@
+<h1> 予定を入力 </h1>
+
+<%= form_with model: @schedule do |f| %>
+    <%= f.hidden_field :date %>
+
+  <div class ="create-field">
+    <%= f.text_field :title, placeholder: "タイトル" %>
+  </div>
+
+  <div>
+    開始時間
+  </div>
+  <div class ="create-field">
+    <%= f.time_field :start_time %>
+  </div>
+
+  <div>
+    終了時間
+  </div>
+  <div class ="create-field">
+    <%= f.time_field :end_time %>
+  </div>
+
+  <div class ="create-field">
+    <%= f.text_area :detail, placeholder: "詳細（書かなくても登録できます）" %>
+  </div>
+
+  <div class ="create-field">
+    <%= f.submit "登録する" %>
+  </div>
+<% end %>

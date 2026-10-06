@@ -1,3 +1,4 @@
 <%= month_calendar do |date| %>
   <%= date.day%>
+  <%= link_to "登録する", new_schedule_path(date: date)  %>
 <% end %>

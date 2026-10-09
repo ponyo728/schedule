@@ -1,5 +1,13 @@
 class SchedulesController < ApplicationController
+  before_action :authenticate_user!
+
   def index
+    @schedules = current_user.schedules
+  end
+
+  def list
+    @date = params[:date]
+    @schedules = current_user.schedules.where(date: @date)
   end
 
   def new

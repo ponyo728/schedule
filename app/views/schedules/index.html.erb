@@ -1,4 +1,11 @@
 <%= month_calendar do |date| %>
   <%= date.day%>
   <%= link_to "登録する", new_schedule_path(date: date)  %>
+
+
+  <% if @schedules.exists?(date: date) %>
+    <%= link_to "予定あり", schedule_list_path(date: date) %>
+  <% else %>
+    <p> 予定なし </p>
+  <% end %>
 <% end %>

@@ -1,0 +1,26 @@
+<%= link_to "カレンダーに戻る", root_path %>
+<h1>予定一覧</h1>
+
+<p class = "date-list"><%= @date %></p>
+
+<% @schedules.each do |schedule| %>
+  <div>
+    <p>
+      <span class = "schedule-label">タイトル</span>
+      <span><%= schedule.title %></span>
+    </p>
+    <p>
+      <span class = "schedule-label">開始時間～終了時間</span>
+      <span>
+        <%= schedule.start_time.strftime("%H:%M") %>
+        ～ 
+        <%= schedule.end_time.strftime("%H:%M") %>
+      </span>
+    </p>
+
+    <p class = "detail-schedule">
+      <span class = "schedule-label">詳細</span>
+      <span><%= schedule.detail %></span>
+    </p>
+  </div>
+<% end %>

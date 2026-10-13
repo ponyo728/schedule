@@ -19,8 +19,7 @@
     </p>
 
     <p class = "detail-schedule">
-      <span class = "schedule-label">詳細</span>
-      <span><%= schedule.detail %></span>
+      <%= link_to "詳細を見る", schedule_path(schedule) %>
     </p>
   </div>
 <% end %>

@@ -1,0 +1,25 @@
+<%= link_to "一覧に戻る", schedule_list_path(date: @schedule.date) %>
+<h1>詳細</h1>
+
+<div>
+    <p>
+      <span><%= @schedule.date%></span>
+    </p>
+
+    <p>
+      <span class = "schedule-label">タイトル</span>
+      <span><%= @schedule.title %></span>
+    </p>
+    <p>
+      <span class = "schedule-label">開始時間～終了時間</span>
+      <span>
+        <%= @schedule.start_time.strftime("%H:%M") %>
+        ～ 
+        <%= @schedule.end_time.strftime("%H:%M") %>
+      </span>
+    </p>
+
+    <p class = "detail-schedule">
+      <span><%= @schedule.detail %></span>
+    </p>
+  </div>

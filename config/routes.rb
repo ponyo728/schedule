@@ -8,6 +8,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "schedules#index"
-  resources :schedules, only: [:index, :new, :create]
   get "schedules/list", to: "schedules#list", as: :schedule_list
+  resources :schedules, only: [:index, :new, :create, :show]
 end

@@ -4,7 +4,7 @@ RSpec.describe Schedule, type: :model do
   before do
     @schedule = FactoryBot.build(:schedule)
   end
-  
+
   describe '予定登録' do
     context '登録ができるとき' do
       it '正しい情報を入力すると登録できる' do
@@ -39,7 +39,7 @@ RSpec.describe Schedule, type: :model do
       it 'userが紐付いていないと登録できない' do
         @schedule.user = nil
         @schedule.valid?
-        expect(@schedule.errors.full_messages).to include("User must exist")
+        expect(@schedule.errors.full_messages).to include('User must exist')
       end
     end
   end

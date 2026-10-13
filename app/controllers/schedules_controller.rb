@@ -24,9 +24,12 @@ class SchedulesController < ApplicationController
     end
   end
 
-
+  def show
+    @schedule = current_user.schedules.find(params[:id])
+  end
 
   private
+
   def schedule_params
     params.require(:schedule).permit(
       :date,

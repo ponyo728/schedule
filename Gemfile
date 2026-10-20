@@ -78,3 +78,4 @@ group :production do
 end
 
 gem "simple_calendar"
+gem "json", "~> 2.0"

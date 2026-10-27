@@ -39,3 +39,22 @@ RSpec.describe 'ユーザー新規登録', type: :system do
     end
   end
 end
+
+RSpec.describe 'ユーザーログイン', type: :system do
+  before do
+    @user = FactoryBot.create(:user)
+  end
+  context 'ユーザーログインできるとき' do
+    it '正しい情報を入力するとログインできてトップページに遷移する' do
+      # ログインページに遷移する
+      visit user_session_path
+      # ユーザー情報を入力する
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      # ログインボタンを押す
+      find('input[name="commit"]').click
+      # トップページに遷移することを確認する
+      expect(page).to have_current_path(root_path)
+    end
+  end
+end

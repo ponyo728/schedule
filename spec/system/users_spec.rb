@@ -57,4 +57,17 @@ RSpec.describe 'ユーザーログイン', type: :system do
       expect(page).to have_current_path(root_path)
     end
   end
+  context 'ユーザーログインできないとき' do
+    it '誤った情報を入力するとログインできずにログインページに戻ってくる' do
+      # ログインページに遷移する
+      visit user_session_path
+      # ユーザー情報を入力する
+      fill_in 'Email', with: ''
+      fill_in 'Password', with: ''
+      # ログインボタンを押す
+      find('input[name="commit"]').click
+      # ログインページに戻される
+      expect(page).to have_current_path(user_session_path)
+    end
+  end
 end

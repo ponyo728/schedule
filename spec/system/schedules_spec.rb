@@ -49,3 +49,26 @@ RSpec.describe "スケジュール登録", type: :system do
     end
   end
 end
+RSpec.describe "スケジュール詳細", type: :system do
+  before do
+    @user = FactoryBot.create(:user)
+    @schedule = FactoryBot.create(:schedule, user: @user)
+  end
+  context "予定詳細が見れるとき" do
+    it "ログインしたユーザーは自分が登録した予定を見ることができる" do
+      # ログインする
+      visit user_session_path
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      find('input[name="commit"]').click
+      expect(page).to have_current_path(root_path)
+      # 自分の予定詳細ページへ移動する
+      click_link '予定あり',
+      href: schedule_list_path(date: @schedule.date)
+      click_link '詳細を見る',
+      href: schedule_path(@schedule)
+      # 予定の情報が表示されていることを確認する
+      expect(page).to have_content(@schedule.detail)
+    end
+  end
+end

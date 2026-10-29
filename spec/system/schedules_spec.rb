@@ -6,7 +6,7 @@ RSpec.describe "スケジュール登録", type: :system do
     @schedule = FactoryBot.build(:schedule)
   end
 
-  context "予定登録ができるとき"do
+  context "予定登録ができるとき" do
     it "ログインしたユーザーは新規投稿できる" do
       # ログインする
       visit user_session_path
@@ -16,7 +16,6 @@ RSpec.describe "スケジュール登録", type: :system do
       expect(page).to have_current_path(root_path)
       # 新規投稿ページへのボタンがあることを確認する
       visit root_path(start_date: @schedule.date)
-      sleep(1)
       click_link '登録する', href: new_schedule_path(date: @schedule.date)
       # 投稿ページに移動する
       expect(page).to have_current_path(new_schedule_path(date: @schedule.date))
@@ -40,6 +39,13 @@ RSpec.describe "スケジュール登録", type: :system do
       href: schedule_list_path(date: @schedule.date)
       # 先ほど登録した情報があることを確認する
       expect(page).to have_content(@schedule.title)
+    end
+  end
+  context "予定登録できないとき" do
+    it "ログインしていないユーザーは新規投稿できない" do
+      # トップページに移ろうとするとログインページに遷移する
+      visit root_path
+      expect(page).to have_current_path(user_session_path)
     end
   end
 end

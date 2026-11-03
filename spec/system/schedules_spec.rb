@@ -93,3 +93,36 @@ RSpec.describe "スケジュール詳細", type: :system do
     end
   end
 end
+RSpec.describe "スケジュール編集", type: :system do
+  before do
+    @user = FactoryBot.create(:user)
+    @schedule = FactoryBot.create(:schedule, user: @user)
+  end
+  context "予定編集ができるとき" do
+    it "ログインしたユーザーは自分が登録した予定を編集できる" do
+      # ログインする
+      visit user_session_path
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      find('input[name="commit"]').click
+      expect(page).to have_current_path(root_path)
+      # 自分の予定編集ページに移動する
+      visit schedule_path(@schedule)
+      click_link '編集',
+      href: edit_schedule_path(schedule_path(@schedule))
+      # 予定を編集する
+      fill_in 'タイトル', with: '変更済み'
+      fill_in 'schedule[start_time]', with: '12:34'
+      fill_in 'schedule[end_time]', with: '18:00'
+      fill_in 'schedule[detail]', with: 'テスト2'
+      find('submit[name="commit"]').click
+      # 予定の編集が完了したら詳細ページに遷移していることを確認する
+      expect(page).to have_current_path(@schedule)
+      # 詳細ページで編集した内容が反映されていることを確認する
+      expect(page).to have_content('変更済み')
+      expect(page).to have_content('12:34')
+      expect(page).to have_content('18:00')
+      expect(page).to have_content('テスト2')
+    end
+  end
+end

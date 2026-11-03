@@ -53,6 +53,8 @@ RSpec.describe "スケジュール詳細", type: :system do
   before do
     @user = FactoryBot.create(:user)
     @schedule = FactoryBot.create(:schedule, user: @user)
+    @user2 = FactoryBot.create(:user)
+    @schedule2 = FactoryBot.create(:schedule, user: @user2)
   end
   context "予定詳細が見れるとき" do
     it "ログインしたユーザーは自分が登録した予定を見ることができる" do
@@ -69,6 +71,25 @@ RSpec.describe "スケジュール詳細", type: :system do
       href: schedule_path(@schedule)
       # 予定の情報が表示されていることを確認する
       expect(page).to have_content(@schedule.detail)
+    end
+  end
+  context "予定詳細が見れないとき" do
+    it "ログインしたユーザーは自分以外が登録した予定を見ることはできない" do
+      # ユーザー1でログインする
+      visit user_session_path
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      find('input[name="commit"]').click
+      expect(page).to have_current_path(root_path)
+      # 他のユーザーの予定詳細ページに移動する
+      visit schedule_path(@schedule2)
+      # トップページに遷移していることを確認する
+      expect(page).to have_current_path(root_path)
+    end
+    it "ログインしていないと予定詳細ページに遷移できない" do
+      # ログインしていない状態で予定詳細ページに移動しようとするとログインページに遷移する
+      visit schedule_path(@schedule)
+      expect(page).to have_current_path(user_session_path)
     end
   end
 end

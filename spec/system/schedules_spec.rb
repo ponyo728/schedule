@@ -147,3 +147,34 @@ RSpec.describe "スケジュール編集", type: :system do
     end
   end
 end
+RSpec.describe "スケジュール削除", type: :system do
+  before do
+    @user = FactoryBot.create(:user)
+    @schedule = FactoryBot.create(:schedule, user: @user)
+  end
+  context "予定削除できるとき" do
+    it "ログインしたユーザーは自分が登録した予定を削除できる" do
+      # ログインする
+      visit user_session_path
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      find('input[name="commit"]').click
+      expect(page).to have_current_path(root_path)
+      # 予定詳細ページに移動する
+      visit schedule_path(@schedule)
+      # 削除ボタンを押すとScheduleモデルのカウントが1下がる
+      expect{
+        click_link '削除'
+        sleep(1)
+      }.to change { Schedule.count }.by(-1)
+      # トップページに遷移する
+      expect(page).to have_current_path(root_path)
+    end
+  end
+  context "予定削除できないとき" do
+    it "ログインしたユーザーは自分以外の予定を削除することはできない" do
+    end
+    it "ログインしていないと予定を削除することはできない" do
+    end
+  end
+end

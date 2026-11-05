@@ -96,7 +96,9 @@ end
 RSpec.describe "スケジュール編集", type: :system do
   before do
     @user = FactoryBot.create(:user)
+    @user2 = FactoryBot.create(:user)
     @schedule = FactoryBot.create(:schedule, user: @user)
+    @schedule2 = FactoryBot.create(:schedule, user: @user2)
   end
   context "予定編集ができるとき" do
     it "ログインしたユーザーは自分が登録した予定を編集できる" do
@@ -109,20 +111,39 @@ RSpec.describe "スケジュール編集", type: :system do
       # 自分の予定編集ページに移動する
       visit schedule_path(@schedule)
       click_link '編集',
-      href: edit_schedule_path(schedule_path(@schedule))
+      href: edit_schedule_path(@schedule)
       # 予定を編集する
       fill_in 'タイトル', with: '変更済み'
       fill_in 'schedule[start_time]', with: '12:34'
       fill_in 'schedule[end_time]', with: '18:00'
       fill_in 'schedule[detail]', with: 'テスト2'
-      find('submit[name="commit"]').click
+      find('input[name="commit"]').click
       # 予定の編集が完了したら詳細ページに遷移していることを確認する
-      expect(page).to have_current_path(@schedule)
+      expect(page).to have_current_path(schedule_path(@schedule))
       # 詳細ページで編集した内容が反映されていることを確認する
       expect(page).to have_content('変更済み')
       expect(page).to have_content('12:34')
       expect(page).to have_content('18:00')
       expect(page).to have_content('テスト2')
+    end
+  end
+  context "予定編集ができないとき" do
+    it "ログインしたユーザーは自分以外の予定編集ページには移動できない" do
+      # ログインする
+      visit user_session_path
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      find('input[name="commit"]').click
+      expect(page).to have_current_path(root_path)
+      # 他のユーザーの編集ページに移動する
+      visit edit_schedule_path(@schedule2)
+      # トップページに遷移していることを確認する
+      expect(page).to have_current_path(root_path)
+    end
+    it "ログインしていないと予定編集ページに移動できない" do
+      # ログインしていない状態で予定編集ページに移動しようとするとログインページに遷移する
+      visit edit_schedule_path(@schedule)
+      expect(page).to have_current_path(user_session_path)
     end
   end
 end

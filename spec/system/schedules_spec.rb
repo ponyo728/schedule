@@ -150,7 +150,9 @@ end
 RSpec.describe "スケジュール削除", type: :system do
   before do
     @user = FactoryBot.create(:user)
+    @user2 = FactoryBot.create(:user)
     @schedule = FactoryBot.create(:schedule, user: @user)
+    @schedule2 = FactoryBot.create(:schedule, user: @user2)
   end
   context "予定削除できるとき" do
     it "ログインしたユーザーは自分が登録した予定を削除できる" do
@@ -173,8 +175,22 @@ RSpec.describe "スケジュール削除", type: :system do
   end
   context "予定削除できないとき" do
     it "ログインしたユーザーは自分以外の予定を削除することはできない" do
+      # ログインする
+      visit user_session_path
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      find('input[name="commit"]').click
+      expect(page).to have_current_path(root_path)
+      # 他のユーザーの予定詳細ページに移動する
+      visit schedule_path(@schedule2)
+      # トップページに遷移していることを確認する
+      expect(page).to have_current_path(root_path)
     end
     it "ログインしていないと予定を削除することはできない" do
+      # 予定詳細ページに移動する
+      visit schedule_path(@schedule)
+      # ログインページに遷移することを確認する
+      expect(page).to have_current_path(user_session_path)
     end
   end
 end

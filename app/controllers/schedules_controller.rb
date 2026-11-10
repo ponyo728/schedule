@@ -52,9 +52,9 @@ class SchedulesController < ApplicationController
   end
 
   def own_schedule
-    if current_user != @schedule.user
-      redirect_to root_path
-    end
+    return unless current_user != @schedule.user
+
+    redirect_to root_path
   end
 
   def schedule_params

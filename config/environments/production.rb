@@ -96,7 +96,7 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   config.action_mailer.default_url_options = {
-  host: 'https://schedule-qp3n.onrender.com',
+  host: 'schedule-qp3n.onrender.com',
   protocol: 'https'
-}
+  }
 end

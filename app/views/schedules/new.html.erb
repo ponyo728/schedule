@@ -1,21 +1,21 @@
-<%= link_to "カレンダーに戻る", root_path %>
-<h1> 予定を入力 </h1>
+<%= link_to ">カレンダーに戻る", root_path, class: "back-calendar" %>
+<h1 class="enter-schedule"> 予定を入力 </h1>
 
 <%= form_with model: @schedule do |f| %>
     <%= f.hidden_field :date %>
 
   <div class ="create-field">
-    <%= f.text_field :title, placeholder: "タイトル" %>
+    <%= f.text_field :title, placeholder: "タイトル", class: "new-title" %>
   </div>
 
-  <div>
+  <div class="start-time">
     開始時間
   </div>
   <div class ="create-field">
     <%= f.time_field :start_time %>
   </div>
 
-  <div>
+  <div class="end-time">
     終了時間
   </div>
   <div class ="create-field">

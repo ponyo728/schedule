@@ -1,0 +1,29 @@
+.registration-container {
+  width: 90%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.registration-title,
+.session-title{
+  font-size: 30px;
+  height: 30%;
+  padding: 30px;
+  text-align: center;
+}
+
+.field{
+  text-align: center;
+  font-size: 100%;
+  margin-bottom: 30px;
+}
+
+.actions{
+  text-align: center;
+  margin-top: 50px;
+}
+
+.forget-password{
+  text-align: center;
+  margin: 20px 0px;
+}

@@ -1,0 +1,40 @@
+.back-list{
+  text-decoration: none;
+  margin-left: 10px;
+  color: gray;
+  font-size: 18px;
+}
+
+.edit-schedule{
+  text-decoration: none;
+  color: #a8a8ff;
+  font-size: 18px;
+}
+
+.delete-schedule{
+  text-decoration: none;
+  color: #ffa8a8;
+  font-size: 18px;
+}
+
+.show-detail{
+  text-align: center;
+  margin-top: 20px;
+}
+
+.show-date{
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.show-title{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.show-time{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}

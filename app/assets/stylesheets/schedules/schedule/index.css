@@ -1,0 +1,18 @@
+.new-schedule{
+  text-decoration: none;
+  margin-left: 10px;
+  color: #9999ff;
+}
+
+.planned{
+  text-decoration: none;
+  margin-left: 30px;
+  color: #ff9993;
+}
+
+.logout{
+  text-decoration: none;
+  margin-left: 5px;
+  color: #c184ff;
+  font-size: 18px;
+}

@@ -1,5 +1,5 @@
-<%= link_to "詳細に戻る", schedule_path(@schedule) %>
-<h1>編集する</h1>
+<%= link_to ">詳細に戻る", schedule_path(@schedule), class: "back-show" %>
+<h1 class="edit">編集する</h1>
 
 <%= form_with model: @schedule do |f| %>
     <%= f.hidden_field :date %>
@@ -8,14 +8,14 @@
     <%= f.text_field :title, placeholder: "タイトル" %>
   </div>
 
-  <div>
+  <div class="start-time">
     開始時間
   </div>
   <div class ="create-field">
     <%= f.time_field :start_time %>
   </div>
 
-  <div>
+  <div class="end-time">
     終了時間
   </div>
   <div class ="create-field">

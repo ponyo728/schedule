@@ -2,10 +2,11 @@
 <%= month_calendar do |date| %>
 
   <%= date.day%>
-  <%= link_to "登録する", new_schedule_path(date: date)  %>
+  <%= link_to "登録する", new_schedule_path(date: date), class: "new-schedule" %>
 
 
   <% if @schedules.exists?(date: date) %>
-    <%= link_to "予定あり", schedule_list_path(date: date) %>
+    <%= link_to "予定あり", schedule_list_path(date: date), class: "planned" %>
   <% end %>
 <% end %>
+<p>予定を見たい場合はその日にカーソルを合わせてください</p>

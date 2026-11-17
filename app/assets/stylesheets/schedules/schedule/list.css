@@ -1,0 +1,31 @@
+.schedule-list{
+  text-align: center;
+}
+
+.detail-schedule{
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.date-list{
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.look-detail-schedule{
+  text-decoration: none;
+  color: #df7fff;
+}
+
+.schedule-label{
+  display: block;
+  text-align: center;
+}
+
+.list-title{
+  text-align: center;
+}
+
+.list-time{
+  text-align: center;
+}
